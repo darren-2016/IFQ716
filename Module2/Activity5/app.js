@@ -44,16 +44,13 @@ function routing(req, res) {
                 console.log('body : ' + body);
                 res.write('OK');
                 res.end();
+
+                // Get the name from the data
                 let username = body.split('=')[1];
-                console.log('username' + username);
-
+                
+                // Add the name to the guestbook
                 guestBook.push( {name: username });
-                // console.log('guestbook' + guestBook);           
-
-                // Add the name in the url params to the guestbook
-                // const params = new URLSearchParams(url.split("?")[1]); // Get the part of the url after the first "?"
-                // guestBook.push({ name: params.get("name") }); // Get the name param and add it to the guestbook
-
+                
                 // Write the updated guestbook to the filesystem
                 console.log('Write to guestbook');
                 fs.writeFile(path, JSON.stringify(guestBook), (err) => {
@@ -66,8 +63,8 @@ function routing(req, res) {
                     console.log('Success writing to file');
                     res.write("Successfully updated the guestbook");
                     res.end();
+            });
         });
-    });
     });
     } else { // No page matched the url
         res.write("No matching page");
