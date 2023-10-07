@@ -64,12 +64,9 @@ function routing(req, res) {
                 console.log(guestAge);
                 console.log(guestGender);
                 console.log(guestComment);
-                // return;
-
-                let guestname = body.split('=')[1];
-                
+              
                 // Add the name to the guestbook
-                guestBook.push( {name: guestname });
+                guestBook.push( {name: guestName, age: guestAge, gender: guestGender, comment: guestComment });
                 
                 // Write the updated guestbook to the filesystem
                 console.log('Write to guestbook');
