@@ -1,7 +1,7 @@
 // Activity 6
-// Form Handling
+// Add some more fields to our guestbook and add a guestbook route
 
-// Import the 'http' module
+// Import the 'http' and 'fs' modules
 const http = require("http");
 const fs = require("fs");
 
@@ -15,7 +15,14 @@ function routing(req, res) {
         res.writeHead(200, { "Content-Type": "text/html"}); // http header
         res.write(`
             <form action=/add method="post">
-                <input name="name">
+                <label for="name">Name</label>
+                <input name="name"><br>
+                <label for="age">Age</label>
+                <input name="age"><br>
+                <label for="gender">Gender</label>
+                <input name="gender"><br>
+                <label for="comment">Comment</label>
+                <input name="comment"><br>
                 <input type="submit">
             </form>
         `);
