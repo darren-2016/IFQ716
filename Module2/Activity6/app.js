@@ -55,10 +55,15 @@ function routing(req, res) {
 
                 // Get the name from the data
                 const searchParams = new URLSearchParams(body);
-                console.log(searchParams.get("name"));
-                console.log(searchParams.get("age"));
-                console.log(searchParams.get("gender"));
-                console.log(searchParams.get("comment"));
+                const guestName = searchParams.get("name");
+                const guestAge = searchParams.get("age");
+                const guestGender = searchParams.get("gender");
+                const guestComment = searchParams.get("comment");
+                
+                console.log(guestName);
+                console.log(guestAge);
+                console.log(guestGender);
+                console.log(guestComment);
                 // return;
 
                 let guestname = body.split('=')[1];
