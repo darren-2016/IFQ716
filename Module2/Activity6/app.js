@@ -46,6 +46,7 @@ function routing(req, res) {
             req.on('data', (chunk) => {
                 body += chunk;
             });
+            console.log('body: ' + body);
 
             req.on('end', () => {
                 console.log('body : ' + body);
@@ -53,6 +54,13 @@ function routing(req, res) {
                 res.end();
 
                 // Get the name from the data
+                const searchParams = new URLSearchParams(body);
+                console.log(searchParams.get("name"));
+                console.log(searchParams.get("age"));
+                console.log(searchParams.get("gender"));
+                console.log(searchParams.get("comment"));
+                // return;
+
                 let guestname = body.split('=')[1];
                 
                 // Add the name to the guestbook
@@ -70,9 +78,14 @@ function routing(req, res) {
                     console.log('Success writing to file');
                     res.write("Successfully updated the guestbook");
                     res.end();
+                });
             });
         });
-    });
+    } else if (url.startsWith("/read")) {
+        res.write("READ");
+        // res.writeHead();
+        res.end();
+
     } else { // No page matched the url
         res.write("No matching page");
         res.end();
