@@ -46,10 +46,10 @@ function routing(req, res) {
                 res.end();
 
                 // Get the name from the data
-                let username = body.split('=')[1];
+                let guestname = body.split('=')[1];
                 
                 // Add the name to the guestbook
-                guestBook.push( {name: username });
+                guestBook.push( {name: guestname });
                 
                 // Write the updated guestbook to the filesystem
                 console.log('Write to guestbook');
