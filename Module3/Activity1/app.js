@@ -46,7 +46,6 @@ function routing(req, res) {
         }
     } else if (url.startsWith("/client")) {
         if (method == "GET") {
-            // The add page
             const filename = "client.html"; // The filename to read from
 
             // Try to read the file
@@ -65,6 +64,39 @@ function routing(req, res) {
             // res.write("Client");
             // res.end();
             // return;
+        }
+    } else if (url.startsWith("/add")) {
+        if (method == "POST") {
+            console.log("/add : POST");
+            let body = '';
+            req.on('data', (chunk) => {
+                body += chunk.toString();
+                console.log('chunk : ' + chunk);
+            });
+            req.on('end', () => {
+                console.log('body : ' + body);
+//                console.log(JSON.parse(body));
+                // console.log('body = ' + body);
+                data.push(body);
+                console.table(data);
+                res.write('OK');
+                res.end();
+            });
+            // res.write("Add");
+            // res.end();
+            //  req.on('data', (chunk) => {
+            //      data += chunk;
+            //      console.log(chunk);
+            //  });
+            // // req.on('end', () => {
+            //     console.log('body : ' + body);
+            //     res.write('OK');
+            //     res.end();
+            // });
+            // console.log('body: ' + data);
+
+           
+            
         }
     } else {
         // No page matched the url
