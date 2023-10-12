@@ -18,13 +18,9 @@
     async function getForm(e) {
         e.preventDefault();
         const cat = document.querySelector('#cat');
-        let response = await fetch("http://localhost:3000/add", {method: "POST", headers: {"Content-Type": "application/json"}, body: cat.value }); //JSON.stringify(cat.value)});
-        // .then(response => response.json())
-        // .then(data => console.log(data));
-        // let data = await res.json();
-        console.log(cat.value);
-        return response.json();
-        //return false;
+        await fetch("http://localhost:3000/add", {method: "POST", headers: {"Content-Type": "application/json"}, body: cat.value });
+        document.location.reload();
+        return false;
     }
 </script>
 <form id="form" onsubmit="return getForm(event)">

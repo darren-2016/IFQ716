@@ -35,14 +35,12 @@ function routing(req, res) {
             res.writeHead(200, { "Content-Type": "application/json" });
             res.write(JSON.stringify(data));
             res.end();
-            // return;
         }
     } else if (url.startsWith("/login")) {
         if (method == "POST") {
             // The add page
             res.write("Login");
             res.end();
-            // return;
         }
     } else if (url.startsWith("/client")) {
         if (method == "GET") {
@@ -61,9 +59,6 @@ function routing(req, res) {
                 res.write(file, "binary");
                 res.end();
             });
-            // res.write("Client");
-            // res.end();
-            // return;
         }
     } else if (url.startsWith("/add")) {
         if (method == "POST") {
@@ -75,28 +70,10 @@ function routing(req, res) {
             });
             req.on('end', () => {
                 console.log('body : ' + body);
-//                console.log(JSON.parse(body));
-                // console.log('body = ' + body);
                 data.push(body);
                 console.table(data);
-                res.write('OK');
-                res.end();
             });
-            // res.write("Add");
-            // res.end();
-            //  req.on('data', (chunk) => {
-            //      data += chunk;
-            //      console.log(chunk);
-            //  });
-            // // req.on('end', () => {
-            //     console.log('body : ' + body);
-            //     res.write('OK');
-            //     res.end();
-            // });
-            // console.log('body: ' + data);
-
-           
-            
+            res.end();
         }
     } else {
         // No page matched the url
