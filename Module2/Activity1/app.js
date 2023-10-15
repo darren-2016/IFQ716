@@ -1,7 +1,15 @@
+/**
+ * Module 2
+ * Activity 1: Creating a more versatile Node server
+ * This activity shows how to do real backend operations.
+ */
+
 // Import the 'http' module
 const http = require("http");
 
-// create a server object
+/**
+ * Create a server object, which will serve the ubiquitous 'Hello World!' message
+ */
 http
     .createServer(function (req, res) {
         res.write("Hello World!"); // write a response
