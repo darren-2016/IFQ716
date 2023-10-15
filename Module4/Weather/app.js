@@ -4,6 +4,8 @@ require("dotenv").config();
 const WEATHERAPI_BASE = "http://api.weatherapi.com/v1";
 const API_KEY = process.env.WEATHERAPI_KEY;
 
+let weatherData = {};
+let timeOfLastAccess = 0;
 
 // async function weather(res) {
 //     console.log("Get weather data");
@@ -14,8 +16,15 @@ const API_KEY = process.env.WEATHERAPI_KEY;
 // }
 
 async function weather(res) {
-    const weatherResponse = await fetch(`${WEATHERAPI_BASE}/current.json?key=${API_KEY}&q=Brisbane`);
-    const weatherData = await weatherResponse.json();
+    const d = new Date();
+    let currentTime = d.getTime();
+
+    if(currentTime - timeOfLastAccess > 30000) {
+        timeOfLastAccess = d.getTime();
+        console.log('Get weather data object from API');
+        const weatherResponse = await fetch(`${WEATHERAPI_BASE}/current.json?key=${API_KEY}&q=Brisbane`);
+        weatherData = await weatherResponse.json();
+    }
 
     const responseData = {"condition": weatherData.current.condition.text, "temperature": weatherData.current.temp_c};
 
