@@ -1,4 +1,4 @@
-# Module 2 Dynamic Websites
+# IFQ716 Module 2: Dynamic Websites
 
 - Looking at the differences between static and dynamic websites
 - Understanding the technologies involved in creating dynamic websites
