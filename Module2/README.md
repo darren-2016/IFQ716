@@ -9,5 +9,5 @@
 
 
 ## [Activity 1 : Creating a more versatile Node server](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity1#activity-1-creating-a-more-versatile-node-server)
-## [Activity 2 : Basic routing](https://github.com/darren-2016/IFQ716/blob/main/Module2/Activity3/README.md#ifq716-module-2---activity-3-basic-routing)
+## [Activity 3 : Basic routing](https://github.com/darren-2016/IFQ716/blob/main/Module2/Activity3/README.md#ifq716-module-2---activity-3-basic-routing)
 
