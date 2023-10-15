@@ -1,4 +1,4 @@
-# Activity 1: Creating a more versatile Node server
+# IFQ716 MOdule 2 - Activity 1: Creating a more versatile Node server
 
 This activity shows how to carry out real backend operations, in this case using an HTTP server that will serve the ubiquitous *'Hello World!'* message.
 
