@@ -1,1 +1,1 @@
-# IFQ716 - Module 3: Dynamic websites
+# IFQ716 - Module 3: AJAX
