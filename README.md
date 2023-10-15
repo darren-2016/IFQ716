@@ -6,8 +6,7 @@
 
 ### [Module 2: Dynamic websites](https://github.com/darren-2016/IFQ716/tree/main/Module2)
 
-### [Module 3: AJAX]
+### [Module 3: AJAX](https://github.com/darren-2016/IFQ716/tree/main/Module3)
 
-### [Module 4: Web services]
-
+### [Module 4: Web services](https://github.com/darren-2016/IFQ716/tree/main/Module4)
 
