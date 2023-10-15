@@ -1,10 +1,26 @@
 const http = require("http");
+require("dotenv").config();
+
+const WEATHERAPI_BASE = "http://api.weatherapi.com/v1";
+const API_KEY = process.env.WEATHERAPI_KEY;
+
+
+// async function weather(res) {
+//     console.log("Get weather data");
+//     const data = {"condition": "Partly cloudy", "temperature": 28};
+//     res.writeHead(200, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" });
+//     res.write(JSON.stringify(data));
+//     res.end();
+// }
 
 async function weather(res) {
-    console.log("Get weather data");
-    const data = {"condition": "Partly cloudy", "temperature": 28};
+    const weatherResponse = await fetch(`${WEATHERAPI_BASE}/current.json?key=${API_KEY}&q=Brisbane`);
+    const weatherData = await weatherResponse.json();
+
+    const responseData = {"condition": weatherData.current.condition.text, "temperature": weatherData.current.temp_c};
+
     res.writeHead(200, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" });
-    res.write(JSON.stringify(data));
+    res.write(JSON.stringify(responseData));
     res.end();
 }
 
