@@ -1,5 +1,5 @@
 /**
- * Module 2
+ * IFQ716 - Module 2
  * Activity 1: Creating a more versatile Node server
  * This activity shows how to do real backend operations.
  */
