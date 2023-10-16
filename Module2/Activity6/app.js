@@ -1,5 +1,7 @@
-// Activity 6
-// Add some more fields to our guestbook and add a guestbook route
+/**
+ * IFQ716 Module 2 - Activity 6
+ * Add some more fields to our guestbook and add a guestbook route
+ */
 
 // Import the 'http' and 'fs' modules
 import { writeFile, readFile } from 'fs';
@@ -26,8 +28,8 @@ async function readFileAsync(path) {
 
 /**
  * 
- * @param {*} req 
- * @param {*} res 
+ * @param {Object} req Request
+ * @param {Object} res Response
  * @returns None
  */
 async function readGuestbook(req, res) {
@@ -51,8 +53,8 @@ async function readGuestbook(req, res) {
 
 /**
  * Routing function
- * @param {*} req 
- * @param {*} res 
+ * @param {Object} req Request
+ * @param {Object} res Response 
  * @returns 
  */
 async function routing(req, res) {
