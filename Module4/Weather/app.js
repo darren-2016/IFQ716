@@ -35,7 +35,7 @@ async function weather(res) {
         weatherData = await weatherResponse.json();
     }
 
-    const responseData = {"condition": weatherData.current.condition.text, "temperature": weatherData.current.temp_c};
+    const responseData = {"condition": weatherData.current.condition.text, "temperature": weatherData.current.temp_c, "icon": weatherData.current.condition.icon};
     const weatherIcon = weatherData.current.condition.icon;
 
     res.writeHead(200, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" });
