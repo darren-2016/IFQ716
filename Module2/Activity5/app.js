@@ -1,5 +1,6 @@
-// Activity 5
-// Form Handling
+/** IFQ716 Module 2 - Activity 5: Form Handling
+ *
+ */
 
 // Import the 'http' module
 const http = require("http");
@@ -7,7 +8,11 @@ const fs = require("fs");
 
 const path = "guestBook.json";
 
-
+/**
+ * 
+ * @param {Object} req Request
+ * @param {Object} res Response
+ */
 function routing(req, res) {
     const url = req.url;
 
@@ -72,7 +77,9 @@ function routing(req, res) {
     }
 }
 
-// create a server object
+/**
+ * Create a server object
+ */
 http.createServer(routing).listen(3000, function () {
     console.log("server start at port 3000"); // the server object listens on port 3000
 });
