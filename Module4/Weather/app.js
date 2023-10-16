@@ -1,3 +1,8 @@
+/**
+ * Weather App
+ * Server-side
+ */
+
 const http = require("http");
 require("dotenv").config();
 
@@ -15,6 +20,10 @@ let timeOfLastAccess = 0;
 //     res.end();
 // }
 
+/**
+ * weather function, which access the WeatherAPI endpoint to get the current weather
+ * @param {Object} res Response
+ */
 async function weather(res) {
     const d = new Date();
     let currentTime = d.getTime();
@@ -27,12 +36,18 @@ async function weather(res) {
     }
 
     const responseData = {"condition": weatherData.current.condition.text, "temperature": weatherData.current.temp_c};
+    const weatherIcon = weatherData.current.condition.icon;
 
     res.writeHead(200, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" });
     res.write(JSON.stringify(responseData));
     res.end();
 }
 
+/**
+ * Routing function
+ * @param {Object} req Request
+ * @param {Object} res Response
+ */
 function routing(req, res) {
     const url = req.url;
     const method = req.method;
@@ -45,6 +60,9 @@ function routing(req, res) {
     }
 }
 
+/**
+ * Create server
+ */
 http.createServer(routing).listen(3000, function () {
     console.log("server start at port 3000"); // the server object listens on port
 });
