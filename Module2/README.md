@@ -12,4 +12,4 @@
 ## [Activity 3 : Basic routing](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity3)
 ## [Activity 4 : Form handling](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity4)
 ## [Activity 5 : Make your guestbook function work with POST](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity5)
-## [Activity 6 : Add some more fields to our guestbook and add a read giestbook route](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity6)
+## [Activity 6 : Add some more fields to our guestbook and add a read guestbook route](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity6)
