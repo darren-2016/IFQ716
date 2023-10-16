@@ -1,5 +1,8 @@
 # IFQ716 - Module 4: Web services
 
+## [Activity 1: CORS and Preflight](https://github.com/darren-2016/IFQ716/tree/main/Module4/Activity1)
+## [Activity 2: Improving the /weather endpoint](https://github.com/darren-2016/IFQ716/tree/main/Module4/Weather)
+
 ## Further Resources:
 
 * [CORS at Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
