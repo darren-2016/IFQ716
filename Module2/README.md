@@ -8,6 +8,8 @@
 - Using the Node filesystem for data persistence between application instances
 
 
-## [Activity 1 : Creating a more versatile Node server](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity1#activity-1-creating-a-more-versatile-node-server)
-## [Activity 3 : Basic routing](https://github.com/darren-2016/IFQ716/blob/main/Module2/Activity3/README.md#ifq716-module-2---activity-3-basic-routing)
-
+## [Activity 1 : Creating a more versatile Node server](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity1)
+## [Activity 3 : Basic routing](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity3)
+## [Activity 4 : Form handling](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity4)
+## [Activity 5 : Make your guestbook function work with POST](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity5)
+## [Activity 6 : Add some more fields to our guestbook and add a read guestbook route](https://github.com/darren-2016/IFQ716/tree/main/Module2/Activity6)
