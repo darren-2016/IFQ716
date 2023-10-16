@@ -1,5 +1,5 @@
-Activity 2: Creating an AJAX API
+# IFQ716 Module 3 - Activity 2: Extending the API
 
-Boilerplate
-Restricting whuch request method is allowed on a route
-Client JavaScript (the hacky way)
+Updating the project with a POST request to update the list of cats:
+* send the data using the request body instead of the URL
+* use fetch rather than form submit.
