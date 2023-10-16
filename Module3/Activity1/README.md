@@ -1,5 +1,5 @@
-Activity 1: Creating an AJAX API
+# IFQ716 Module 3 - Activity 1: Creating an AJAX API
 
-Boilerplate
-Restricting whuch request method is allowed on a route
-Client JavaScript (the hacky way)
+- Boilerplate
+- Restricting whuch request method is allowed on a route
+- Client JavaScript (the hacky way)
