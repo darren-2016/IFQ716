@@ -1,3 +1,9 @@
+/**
+ * IFQ716 Module 3
+ * Activity 1: Creating an AJAX API
+ */
+
+
 const fs = require("fs");
 const http = require("http");
 
@@ -24,7 +30,11 @@ const data = [
     "Himalayan"    
 ];
 
-
+/**
+ * Routing function
+ * @param {Object} req Request
+ * @param {Object} res Response
+ */
 function routing(req, res) {
     const url = req.url;
     const method = req.method;
@@ -105,6 +115,9 @@ function routing(req, res) {
     }
 }
 
+/**
+ * Create server
+ */
 http.createServer(routing).listen(3000, function () {
     console.log("server start at port 3000"); // the server object listens on port 3000
 });
