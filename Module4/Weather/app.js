@@ -25,15 +25,15 @@ let timeOfLastAccess = 0;
 /**
  * weather function, which access the WeatherAPI endpoint to get the current weather
  * @param {Object} res Response
+ * @param {string} city City
  */
-async function weather(res) {
+async function weather(res, city) {
     let currentTime = Date.now();
-    console.log(currentTime);
 
     if(currentTime - timeOfLastAccess > REFRESH_INTERVAL) {
         timeOfLastAccess = Date.now();
         console.log('Get weather data object from API');
-        const weatherResponse = await fetch(`${WEATHERAPI_BASE}/current.json?key=${API_KEY}&q=Brisbane`);
+        const weatherResponse = await fetch(`${WEATHERAPI_BASE}/current.json?key=${API_KEY}&q=${city}`);
         weatherData = await weatherResponse.json();
     }
 
@@ -51,9 +51,13 @@ async function weather(res) {
  */
 function routing(req, res) {
     const url = req.url;
+    console.log("url = " + url);
     const method = req.method;
     if (url.startsWith("/weather") && method == "GET") {
-        weather(res);
+        const params = new URLSearchParams(url.split("?")[1]);
+        const location = params.get("q");
+        console.log('location = ' + location);
+        weather(res, location);
     } else {
         // No page matched the url
         res.write("No matching page");
