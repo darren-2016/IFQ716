@@ -27,11 +27,11 @@ let timeOfLastAccess = 0;
  * @param {Object} res Response
  */
 async function weather(res) {
-    const d = new Date();
-    let currentTime = d.getTime();
+    let currentTime = Date.now();
+    console.log(currentTime);
 
     if(currentTime - timeOfLastAccess > REFRESH_INTERVAL) {
-        timeOfLastAccess = d.getTime();
+        timeOfLastAccess = Date.now();
         console.log('Get weather data object from API');
         const weatherResponse = await fetch(`${WEATHERAPI_BASE}/current.json?key=${API_KEY}&q=Brisbane`);
         weatherData = await weatherResponse.json();
