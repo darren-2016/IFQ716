@@ -9,6 +9,8 @@ require("dotenv").config();
 const WEATHERAPI_BASE = "http://api.weatherapi.com/v1";
 const API_KEY = process.env.WEATHERAPI_KEY;
 
+const REFRESH_INTERVAL = 30000;
+
 let weatherData = {};
 let timeOfLastAccess = 0;
 
@@ -28,7 +30,7 @@ async function weather(res) {
     const d = new Date();
     let currentTime = d.getTime();
 
-    if(currentTime - timeOfLastAccess > 30000) {
+    if(currentTime - timeOfLastAccess > REFRESH_INTERVAL) {
         timeOfLastAccess = d.getTime();
         console.log('Get weather data object from API');
         const weatherResponse = await fetch(`${WEATHERAPI_BASE}/current.json?key=${API_KEY}&q=Brisbane`);
