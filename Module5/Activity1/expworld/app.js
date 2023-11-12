@@ -9,6 +9,11 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+function logOriginalUrl (req, res, next) {
+  console.log('Request URL:', req.originalUrl);
+  next();
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -18,6 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(logOriginalUrl);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -35,6 +42,7 @@ app.get('/about', function (req, res) {
 app.get('/random.text', function (req, res) {
   res.send('random.text');
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
