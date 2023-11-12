@@ -10,3 +10,5 @@
 
 ### [Module 4: Web services](https://github.com/darren-2016/IFQ716/tree/main/Module4)
 
+### [Module 5: Express and middleware](https://github.com/darren-2016/IFQ716/tree/main/Module5)
+
