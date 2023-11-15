@@ -18,4 +18,7 @@ router.get('/course/:courseId/unit/:unitId', function (req, res) {
   res.send('you are studying ' + req.params.courseId + ' unit ' + req.params.unitId);
 });
 
+router.use('/course', require('./users/course'));
+
+
 module.exports = router;
