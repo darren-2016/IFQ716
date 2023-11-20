@@ -26,9 +26,11 @@ router.get("/api/city", function (req, res, next) {
 });
 
 router.get("/api/city/:CountryCode", function (req, res, next) {
+  const limit = parseInt(req.query.limit) || 10; // optional limit parameter, default to 10 if not provided
   req.db
     .from("city")
     .select("*")
+    .limit(limit)
     .where("CountryCode", "=", req.params.CountryCode)
     .then((rows) => {
       res.json( { Error: false, Message: "Success", City: rows });
