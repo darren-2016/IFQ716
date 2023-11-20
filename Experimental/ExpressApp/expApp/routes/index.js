@@ -11,9 +11,11 @@ router.get('/hello', function(req, res, next) {
 });
 
 router.get("/api/city", function (req, res, next) {
+  const limit = parseInt(req.query.limit) || 10; // optional limit parameter, default to 10 if not provided
   req.db
     .from("city")
     .select("name", "district")
+    .limit(limit) // apply a limit
     .then((rows) => {
       res.json({ Error: false, Message: "Success", City: rows });
     })
