@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Cities</title>
+</head>
+
+<script>
+  const form = document.getElementById('myForm');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const city = document.getElementById('city').value;
+    const countryCode = document.getElementById('countryCode').value;
+    const population = document.getElementById('population').value;
+
+    const data = {
+      City: city,
+      CountryCode: countryCode,
+      Pop: population
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/api/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.error) {
+        alert('Error submitting form: ' + responseData.message);
+      } else {
+        alert('Form submitted successfully!');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred while submitting the form.');
+    }
+  });
+</script>
+
+<body>
+  <h1>World Cities</h1>
+  <form id="myForm">
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" required>
+    <br>
+
+    <label for="countryCode">Country Code:</label>
+    <input type="text" id="countryCode" name="countryCode" required>
+    <br>
+
+    <label for="population">Population:</label>
+    <input type="text" id="population" name="population" required>
+    <br>
+
+    <button type="submit">Submit Query</button>
+  </form>
+
+  
+</body>
+</html>
