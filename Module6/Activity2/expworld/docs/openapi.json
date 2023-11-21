@@ -28,7 +28,7 @@
         "/api/city": {
             "get": {
                 "tags": [
-                    "query"
+                    "city"
                 ],
                 "summary": "List cities and provinces",
                 "description": "Full listing of cities and their provinces for the database",
@@ -79,7 +79,7 @@
         "/api/city/{countryCode}": {
             "get": {
                 "tags": [
-                    "query"
+                    "city"
                 ],
                 "summary": "List cities and provinces by country",
                 "description": "Full listing of cities and their provinces for the database",
@@ -137,6 +137,99 @@
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/update": {
+            "post": {
+                "tags": [
+                    "city"
+                ],
+                "summary": "Update a city's population",
+                "description": "Update a city's population",
+                "operationId": "updateCity",
+                "requestBody": {
+                    "description": "Update the population",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/City"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/City"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/City"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/City"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "City": {
+                "required": [
+                    "City",
+                    "CountryCode",
+                    "Pop"
+                ],
+                "type": "object",
+                "properties": {
+                    "City": {
+                        "type": "string",
+                        "example": "Tokyo"
+                    },
+                    "CountryCode": {
+                        "type": "string",
+                        "example": "JPN"
+                    },
+                    "Pop": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1324782
+                    }                   
+                },
+                "xml": {
+                    "name": "city"
+                }
+            }
+        },
+        "requestBodies": {
+            "Pet": {
+                "description": "Pet object that needs to be added to the store",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Pet"
+                        }
+                    },
+                    "application/xml": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Pet"
                         }
                     }
                 }
