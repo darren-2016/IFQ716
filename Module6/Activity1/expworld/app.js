@@ -7,6 +7,10 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
+const options = require('./knexfile.js');
+const knex = require('knex')(options);
+const cors = require('cors');
+
 const app = express();
 
 // function logOriginalUrl (req, res, next) {
@@ -27,6 +31,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('./middleware/logOriginalUrl'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+
+app.use((req, res, next) => {
+  req.db = knex;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
