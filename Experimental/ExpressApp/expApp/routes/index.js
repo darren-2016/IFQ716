@@ -12,10 +12,13 @@ router.get('/hello', function(req, res, next) {
 
 router.get("/api/city", function (req, res, next) {
   const limit = parseInt(req.query.limit) || 10; // optional limit parameter, default to 10 if not provided
+  const sortBy = req.query.sortBy || "name"; // set a default sort by name if not provided
+  const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc"; // set the sort order
   req.db
     .from("city")
     .select("name", "district")
     .limit(limit) // apply a limit
+    .orderBy(sortBy, sortOrder) // apply the sorting
     .then((rows) => {
       res.json({ Error: false, Message: "Success", City: rows });
     })
@@ -27,8 +30,8 @@ router.get("/api/city", function (req, res, next) {
 
 router.get("/api/city/:CountryCode", function (req, res, next) {
   const limit = parseInt(req.query.limit) || 10; // optional limit parameter, default to 10 if not provided
-  const sortBy = req.query.sortBy || "name"; // set a default sort by CityName if not provided
-  const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc"; // set the sort order (1 = ascending, -1 = descending)
+  const sortBy = req.query.sortBy || "name"; // set a default sort by name if not provided
+  const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc"; // set the sort order
   
   req.db
     .from("city")
