@@ -7,6 +7,9 @@ router.get('/', function(req, res, next) {
   res.send('hello index');
 });
 
+router.get('/api', function(req, res, next) {
+
+});
 
 router.get("/api/city", function (req, res, next) {
   const limit = parseInt(req.query.limit) || 10; // optional limit parameter, default to 10 if not provided

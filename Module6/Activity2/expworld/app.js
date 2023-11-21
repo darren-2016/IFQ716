@@ -11,6 +11,9 @@ const options = require('./knexfile.js');
 const knex = require('knex')(options);
 const cors = require('cors');
 
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require('./docs/openapi.json');
+
 const app = express();
 
 // function logOriginalUrl (req, res, next) {
@@ -44,6 +47,7 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
