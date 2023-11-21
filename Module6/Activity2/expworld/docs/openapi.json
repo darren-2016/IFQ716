@@ -75,6 +75,72 @@
                     }
                 }
             }
+        },
+        "/api/city/{countryCode}": {
+            "get": {
+                "tags": [
+                    "query"
+                ],
+                "summary": "List cities and provinces by country",
+                "description": "Full listing of cities and their provinces for the database",
+                "operationId": "listCitiesAndDistricts",
+                "parameters": [
+                    {
+                        "name": "countryCode",
+                        "in": "path",
+                        "description": "Country code",
+                        "required": true,
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Error": {
+                                    "type": "string",
+                                    "enum": [
+                                        "true",
+                                        "false"
+                                    ]
+                                },
+                                "Message": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Success",
+                                        "Failure"
+                                    ]
+                                },
+                                "City": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "district": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
