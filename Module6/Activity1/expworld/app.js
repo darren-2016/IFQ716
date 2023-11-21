@@ -24,7 +24,9 @@ const logOriginalUrl = require('./middleware/logOriginalUrl');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+app.use(logger('dev'));   // morgan logger set to use 'dev' format string
+// app.use(logger('short'));   // morgan logger set to use 'short' format string
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -67,6 +69,12 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+logger.token('res', (req, res) => {
+  const headers = {};
+  res.getHeaderNames().map(h => headers[h] = res.getHeader(h));
+  return JSON.stringify(headers);
 });
 
 
