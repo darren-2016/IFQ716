@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+
+    <script>
+        // async function postForm(e) {
+        //     e.preventDefault();
+        //     const form = document.querySelector('#form');
+        //     let response = await fetch("http://localhost:3000/api/update", {method: "POST", headers: {"Content-Type": "application/json"}, body: { City: Tokyo, CountryCode: JPN, Population: 12345 } }); //JSON.stringify(cat.value)});
+        //     // .then(response => response.json())
+        //     // .then(data => console.log(data));
+        //     // let data = await res.json();
+        //     // console.log(cat.value);
+        //     console.log('Update');
+        //     return response.json();
+        //     //return false;
+        // }
+
+
+
+        const form = document.getElementById('form');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the form from submitting the data automatically
+
+            const city = document.getElementById('city').value;
+            const countryCode = document.getElementById('countryCode').value;
+            const population = document.getElementById('population').value;
+            
+            const data = {
+                City: city,
+                CountryCode: countryCode,
+                Pop: population
+            };
+
+            const response = await fetch('http://localhost:3000/api/update', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log(responseData); // Display the response data in the console
+                alert('Your data has been submitted successfully!');
+            } else {
+                console.error('Error submitting data:', response.status);
+                alert('An error occurred while submitting your data.');
+            }
+            });
+    </script>
+
+    <form id="form"> <!-- /form>onsubmit="return postForm(event)" -->
+        <label for="city">City: </label>
+        <input type="text" id="city" name="city"><br>
+        <label for="countryCode">Country Code: </label>
+        <input type="text" id="countryCode" name="countryCode"><br>
+        <label for="population">Population: </label>
+        <input type="text" id="population" name="population"><br>
+        <button type="submit" id="submitQuery" name="submitQuery">Submit Query</button>
+    </form>
+</body>
+
+</html>
+
