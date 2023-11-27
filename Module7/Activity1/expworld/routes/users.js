@@ -4,6 +4,13 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+// class for extended status code/error handling
+class StatusError extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
+  }
+}
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -21,19 +28,18 @@ router.post('/register', function(req, res, next) {
 
   // Verify body
   if (!email || !password) {
-    return res.status(400).json({
-      error: true,
-      message: "Request body incomplete - email and password needed"
-    });
+    return res.status(400).json({ error: true, message: "Request body incomplete - email and password needed" });
   }
 
   // Determine if user already exists in table
   const queryUsers = req.db.from("users").select("*").where("email", "=", email);
 
-  queryUsers.then(users => {
+  queryUsers
+    .then(users => {
     if (users.length > 0) {
       console.log("User already exists");
-      return; // res.status(400).json({ error: true, message: "User already exists"});
+      throw new StatusError('User already exists', 400);
+      // return; // res.status(400).json({ error: true, message: "User already exists"});
     }
 
     // If user does not exist, insert into table
@@ -46,8 +52,13 @@ router.post('/register', function(req, res, next) {
     res.status(201).json({ success: true, message: "User created" });
   })
   .catch((err) => {
-    console.log("User registration error");
-    //res.status(500).json({ error: true, message: "User registration error" });
+    if (err instanceof StatusError) {
+      console.log(`Error: ${err.statusCode}, ${err.message}`);
+      res.status(err.statusCode).json({ error: true, message: err.message });
+    } else {
+      console.log("User registration error");
+      res.status(500).json({ error: true, message: "User registration error" });
+    }    
   });
 });
 
