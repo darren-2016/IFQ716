@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const authorization = require('../middleware/authorization');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
@@ -50,7 +52,7 @@ router.get("/api/city/:CountryCode", function (req, res, next) {
     });
 });
 
-router.post('/api/update', (req, res) => {
+router.post('/api/update', authorization, (req, res) => {
   const filter = { Name: req.body.City, CountryCode: req.body.CountryCode };
   const pop = { Population: req.body.Pop };
 
