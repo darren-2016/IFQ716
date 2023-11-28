@@ -66,18 +66,17 @@ router.get('/course/:courseId/unit/:unitId', function (req, res) {
   res.send('you are studying ' + req.params.courseId + ' unit ' + req.params.unitId);
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/oldlogin', function(req, res, next) {
   // 1. Retrieve email and password from req.body
   const email = req.body.email;
   const password = req.body.password;
 
   // Verify body
   if (!email || !password) {
-    res.status(400).json({
+    return res.status(400).json({
       error: true,
       message: "Request body incomplete - email and password needed"
     });
-    return;
   }
 
   // 2. Determine if user already exists in table
@@ -86,11 +85,12 @@ router.post('/login', function(req, res, next) {
     .then(users => {
       if (users.length === 0) {
         console.log("User does not exist");
-        res.status(400).json({
-          error: true,
-          message: "User does not exist"
-        });
-        return;
+        // res.status(400).json({
+        //   error: true,
+        //   message: "User does not exist"
+        // });
+        throw new StatusError("User does not exist", 400);
+        // return;
       }
     //   console.log("Uer exists in table");
     // });
@@ -114,16 +114,127 @@ router.post('/login', function(req, res, next) {
     const expires_in = 60 * 60 * 24; // 24 hours
     const exp = Math.floor(Date.now() / 1000) + expires_in;
     const token = jwt.sign({ email, exp }, process.env.JWT_SECRET);
-    res.status(200).json({
+    return res.status(200).json({
       token,
       token_type: "Bearer",
       expires_in
+    })
+    .catch((err) => {
+      if (err instanceof StatusError) {
+        console.log(`Error: ${err.statusCode}, ${err.message}`);
+        res.status(err.statusCode).json({ error: true, message: err.message });
+      } else {
+        console.log("User login error");
+        res.status(500).json({ error: true, message: "User login error" });
+      }    
     });
 
   // 2.2 If user does not exist, return error response
 
+  });
 });
+
+function isValidEmail(email) {
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+)@([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,}))$/;
+  return emailRegex.test(email);
+}
+
+const validateLoginBody = (req) => {
+  console.log('validateLoginBody');
+
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    throw new StatusError('Missing required fields', 400);
+  }
+
+  if (isValidEmail(email)) {
+    throw new StatusError('Invalid email format', 400);
+  }
+}
+
+const checkUserExists = (req, email) => {
+  console.log('checkUserExists');
+
+  const queryUsers = req.db.from("users").select("*").where("email", "=", email);
+
+  queryUsers.then(users => {
+    if (users.length === 0) {
+      console.log("User does not exist");
+      throw new StatusError("User does not exist", 400);
+    } else {
+      console.log('User exists: ' + users[0].hash);
+      // return users[0];
+    }
+  });
+}
+
+router.post('TEMP/login', function(req, res, next) {
+
+  try {
+    validateLoginBody(req);
+    const email = req.body.email;
+    const password = req.body.password;
+    console.log('check');
+
+    checkUserExists(req, email);
+    // console.log(user);
+
+  } catch (error) {
+    const errorMessage = error.message || 'Internal server error';
+    res.status(error.statusCode || 500).json({ error: true, message: errorMessage });
+  }
+
 });
+
+
+
+router.post('/login', async (req, res, next) => {
+  try {
+    console.log("POST /user/login");
+
+    // Retrieve email and password from req.body
+    const email = req.body.email;
+    const password = req.body.password;
+
+    // Verify body
+    if (!email || !password) {
+      console.log("Missing email/password");
+      throw new StatusError("Request body incomplete, both email and password are required", 400);
+    }
+
+    // Determine if user already exists in table
+    const queryUsers = req.db.from("users").select("*").where("email", "=", email);
+    
+    const users = await queryUsers;
+
+    if (users.length === 0) {
+      console.log("User does not exist");
+      throw new StatusError("Incorrect email or password", 404);
+    }
+
+    // If user does exist, verify if passwords match by comparing password hashes
+    const user = users[0];
+    const match = await bcrypt.compare(password, user.hash);
+    
+    if (!match) {
+      console.log("Password not recognised");
+      throw new StatusError("Incorrect email or password", 401);
+    }
+
+    // Create and return JWT token
+    const expires_in = 60 * 60 * 24; // 24 hours
+    const exp = Math.floor(Date.now() / 1000) + expires_in;
+    const token = jwt.sign({ email, exp }, process.env.JWT_SECRET);
+
+    res.status(200).json({ token, token_type: "Bearer", expires_in });
+
+  } catch (error) {
+    console.log("User login error: " + error.message);
+    res.status(error.statusCode || 500).json({ error: error.message });
+  }
+});
+
 
 router.use('/course', require('./users/course'));
 
