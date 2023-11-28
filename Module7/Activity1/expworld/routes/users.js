@@ -227,12 +227,19 @@ router.post('/login', async (req, res, next) => {
     const exp = Math.floor(Date.now() / 1000) + expires_in;
     const token = jwt.sign({ email, exp }, process.env.JWT_SECRET);
 
+    res.cookie('authToken', token, { httpOnly: true, secure: true });
+
     res.status(200).json({ token, token_type: "Bearer", expires_in });
 
   } catch (error) {
     console.log("User login error: " + error.message);
     res.status(error.statusCode || 500).json({ error: error.message });
   }
+});
+
+router.post('/logout', async (req, res, next) => {
+  res.clearCookie('authToken');
+  res.status(200).json({ message: 'Logged out successfully'});
 });
 
 
