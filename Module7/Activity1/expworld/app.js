@@ -17,6 +17,7 @@ const swaggerUI = require('swagger-ui-express');
 const swaggerDocument = require('./docs/openapi.json');
 // const swaggerDocument = require('./docs/OriginalCopy-openapi.json');
 
+const helmet = require('helmet');
 
 const app = express();
 
@@ -38,6 +39,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(helmet());
 
 app.use(require('./middleware/logOriginalUrl'));
 
